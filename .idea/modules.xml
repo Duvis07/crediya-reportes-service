@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Reto Bootcamp.iml" filepath="$PROJECT_DIR$/.idea/Reto Bootcamp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/driven-adapters/dynamo-db/reportes-service.dynamo-db.main.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/driven-adapters/dynamo-db/reportes-service.dynamo-db.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/helpers/metrics/reportes-service.metrics.main.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/helpers/metrics/reportes-service.metrics.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/model/reportes-service.model.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/model/reportes-service.model.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/entry-points/reactive-web/reportes-service.reactive-web.main.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/entry-points/reactive-web/reportes-service.reactive-web.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/infrastructure/driven-adapters/sqs-sender/reportes-service.sqs-sender.main.iml" filepath="$PROJECT_DIR$/.idea/modules/infrastructure/driven-adapters/sqs-sender/reportes-service.sqs-sender.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/usecase/reportes-service.usecase.main.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/usecase/reportes-service.usecase.main.iml" />
     </modules>
   </component>
 </project>

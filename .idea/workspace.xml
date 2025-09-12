@@ -1,39 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="f60c59df-4b14-4a8c-8311-29b715c1f30b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/authentication-service/HU.txt" beforeDir="false" afterPath="$PROJECT_DIR$/authentication-service/HU.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authentication-service/infrastructure/driven-adapters/r2dbc-postgresql/src/main/java/co/com/crediya/authentication/r2dbc/adapter/RoleRepositoryAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication-service/infrastructure/driven-adapters/r2dbc-postgresql/src/main/java/co/com/crediya/authentication/r2dbc/adapter/RoleRepositoryAdapter.java" afterDir="false" />
+    <list default="true" id="96effb55-5b35-4610-82fd-60aa2d792b49" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lambda-capacidad-endeudamiento/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lambda-capacidad-endeudamiento/auto-lambda-simulator.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lambda-capacidad-endeudamiento/init-sqs-queues.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lambda-capacidad-endeudamiento/purge-sqs-queue.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lambda-capacidad-endeudamiento/requirements.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lambda-capacidad-endeudamiento/start-auto-simulator.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lambda-capacidad-endeudamiento/test-event.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../solicitudes-service" beforeDir="false" afterPath="$PROJECT_DIR$/../solicitudes-service" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../start-containers.bat" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/authentication-service" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
   </component>
   <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
+  "associatedIndex": 3
 }]]></component>
-  <component name="ProjectId" id="31xxzj2P8CKNmSwlrk1K34LpFsn" />
+  <component name="ProjectId" id="32bfchujNEJncJfPJoL6gWBRzJo" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Gradle.Build reportes-service.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/HU3-authentication-jwt",
-    "last_opened_file_path": "C:/Users/duvan.botero/Documents/Reto Bootcamp",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.MainApplication.executor": "Run",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/duvan.botero/Documents/Reto Bootcamp/reportes-service",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="MainApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="reportes-service.app-service.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="co.com.crediya.reportes.MainApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -44,13 +90,16 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f60c59df-4b14-4a8c-8311-29b715c1f30b" name="Changes" comment="" />
-      <created>1756479790688</created>
+      <changelist id="96effb55-5b35-4610-82fd-60aa2d792b49" name="Changes" comment="" />
+      <created>1757694273983</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1756479790688</updated>
-      <workItem from="1756479793724" duration="272000" />
+      <updated>1757694273983</updated>
+      <workItem from="1757694277592" duration="4215000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
