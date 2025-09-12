@@ -13,6 +13,7 @@ import software.amazon.awssdk.services.dynamodb.model.ResourceInUseException;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Repository
 public class LoanReportRepositoryAdapter implements LoanReportRepository {
@@ -32,10 +33,14 @@ public class LoanReportRepositoryAdapter implements LoanReportRepository {
         try {
             table.createTable().join();
             log.info("Table 'loan-reports' created successfully");
-        } catch (ResourceInUseException e) {
-            log.info("Table 'loan-reports' already exists");
         } catch (Exception e) {
-            log.error("Error creating table: {}", e.getMessage());
+            // Check if the root cause is ResourceInUseException (table already exists)
+            Throwable cause = e.getCause();
+            if (cause instanceof ResourceInUseException) {
+                log.info("Table 'loan-reports' already exists, skipping creation");
+            } else {
+                log.error("Error creating table: {}", e.getMessage(), e);
+            }
         }
     }
 
@@ -46,6 +51,7 @@ public class LoanReportRepositoryAdapter implements LoanReportRepository {
         Key key = Key.builder().partitionValue(id).build();
         
         return Mono.fromFuture(table.getItem(key))
+                .filter(Objects::nonNull)
                 .map(entity -> mapper.map(entity, LoanReport.class))
                 .doOnSuccess(report -> log.info("Found loan report: {}", report))
                 .doOnError(error -> log.error("Error finding loan report by id: {}", id, error));
@@ -86,6 +92,9 @@ public class LoanReportRepositoryAdapter implements LoanReportRepository {
     public Mono<LoanReport> getOrCreateSummary() {
         String summaryId = "LOAN_REPORT_SUMMARY";
         return findById(summaryId)
-                .switchIfEmpty(save(LoanReport.createInitial().toBuilder().id(summaryId).build()));
+                .switchIfEmpty(Mono.defer(() -> {
+                    log.info("Creating initial loan report summary");
+                    return save(LoanReport.createInitial().toBuilder().id(summaryId).build());
+                }));
     }
 }

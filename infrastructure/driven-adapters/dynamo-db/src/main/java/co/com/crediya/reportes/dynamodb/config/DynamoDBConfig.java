@@ -19,17 +19,15 @@ public class DynamoDBConfig {
 
     @Bean
     @Profile({"local"})
-    public DynamoDbAsyncClient amazonDynamoDB(@Value("${aws.localstack.endpoint}") String endpoint,
-                                              @Value("${aws.localstack.region}") String region,
-                                              @Value("${aws.localstack.access-key}") String accessKey,
-                                              @Value("${aws.localstack.secret-key}") String secretKey,
-                                              MetricPublisher publisher) {
+    public DynamoDbAsyncClient amazonDynamoDB(@Value("${dynamodb.endpoint}") String endpoint,
+                                              @Value("${aws.region}") String region,
+                                              @Value("${aws.access-key}") String accessKey,
+                                              @Value("${aws.secret-key}") String secretKey) {
         return DynamoDbAsyncClient.builder()
                 .credentialsProvider(StaticCredentialsProvider.create(
                         AwsBasicCredentials.create(accessKey, secretKey)))
                 .region(Region.of(region))
                 .endpointOverride(URI.create(endpoint))
-                .overrideConfiguration(o -> o.addMetricPublisher(publisher))
                 .build();
     }
 
