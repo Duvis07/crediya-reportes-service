@@ -1,0 +1,57 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: "reportes-service"
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+  devtools:
+    add-properties: false
+    restart:
+      enabled: false
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY:test}
+        secret-key: ${AWS_SECRET_KEY:test}
+      region:
+        static: ${AWS_REGION:us-east-1}
+      sqs:
+        endpoint: ${AWS_LOCALSTACK_ENDPOINT:http://localhost:4566}
+      dynamodb:
+        endpoint: ${AWS_LOCALSTACK_ENDPOINT:http://localhost:4566}
+
+logging:
+  level:
+    co.com.crediya.reportes: DEBUG
+    software.amazon.awssdk: INFO
+    org.springframework: INFO
+    io.awspring.cloud: DEBUG
+
+# AWS LocalStack Configuration
+aws:
+  localstack:
+    endpoint: ${AWS_LOCALSTACK_ENDPOINT:http://localhost:4566}
+    region: ${AWS_REGION:us-east-1}
+    access-key: ${AWS_ACCESS_KEY:test}
+    secret-key: ${AWS_SECRET_KEY:test}
+
+# DynamoDB Configuration
+dynamodb:
+  table:
+    loan-reports: loan-reports
+
+# SQS Configuration
+sqs:
+  queues:
+    loan-approved-events: loan-approved-events-queue
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
