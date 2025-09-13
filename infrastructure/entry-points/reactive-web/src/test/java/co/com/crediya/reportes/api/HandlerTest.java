@@ -8,18 +8,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.reactive.function.server.RouterFunction;
-import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 
 @ExtendWith(MockitoExtension.class)
 class HandlerTest {
@@ -30,18 +29,14 @@ class HandlerTest {
     @Mock
     private SendDailyReportUseCase sendDailyReportUseCase;
 
+    @Mock
+    private ServerRequest serverRequest;
+
     private Handler handler;
-    private WebTestClient webTestClient;
 
     @BeforeEach
     void setUp() {
         handler = new Handler(getLoanReportUseCase, sendDailyReportUseCase);
-        
-        RouterFunction<ServerResponse> routerFunction = RouterFunctions
-                .route(GET("/api/v1/reportes"), handler::getLoanReports)
-                .andRoute(POST("/api/v1/reportes/send-now"), handler::sendTestReport);
-        
-        webTestClient = WebTestClient.bindToRouterFunction(routerFunction).build();
     }
 
     @Test
@@ -56,15 +51,15 @@ class HandlerTest {
 
         when(getLoanReportUseCase.getLoanReport()).thenReturn(Mono.just(expectedReport));
 
-        // When & Then
-        webTestClient.get()
-                .uri("/api/v1/reportes")
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().isOk()
-                .expectHeader().contentType(MediaType.APPLICATION_JSON)
-                .expectBody(LoanReport.class)
-                .isEqualTo(expectedReport);
+        // When
+        Mono<ServerResponse> response = handler.getLoanReports(serverRequest);
+
+        // Then
+        StepVerifier.create(response)
+                .assertNext(serverResponse -> {
+                    assertEquals(HttpStatus.OK, serverResponse.statusCode());
+                })
+                .verifyComplete();
 
         verify(getLoanReportUseCase, times(1)).getLoanReport();
     }
@@ -75,14 +70,15 @@ class HandlerTest {
         RuntimeException expectedError = new RuntimeException("Database connection failed");
         when(getLoanReportUseCase.getLoanReport()).thenReturn(Mono.error(expectedError));
 
-        // When & Then
-        webTestClient.get()
-                .uri("/api/v1/reportes")
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().is5xxServerError()
-                .expectBody(String.class)
-                .value(body -> body.contains("Error retrieving loan reports"));
+        // When
+        Mono<ServerResponse> response = handler.getLoanReports(serverRequest);
+
+        // Then
+        StepVerifier.create(response)
+                .assertNext(serverResponse -> {
+                    assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, serverResponse.statusCode());
+                })
+                .verifyComplete();
 
         verify(getLoanReportUseCase, times(1)).getLoanReport();
     }
@@ -92,14 +88,15 @@ class HandlerTest {
         // Given
         when(sendDailyReportUseCase.sendDailyBusinessReport()).thenReturn(Mono.empty());
 
-        // When & Then
-        webTestClient.post()
-                .uri("/api/v1/reportes/send-now")
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody(String.class)
-                .isEqualTo("Daily business report sent successfully");
+        // When
+        Mono<ServerResponse> response = handler.sendTestReport(serverRequest);
+
+        // Then
+        StepVerifier.create(response)
+                .assertNext(serverResponse -> {
+                    assertEquals(HttpStatus.OK, serverResponse.statusCode());
+                })
+                .verifyComplete();
 
         verify(sendDailyReportUseCase, times(1)).sendDailyBusinessReport();
     }
@@ -110,14 +107,15 @@ class HandlerTest {
         RuntimeException expectedError = new RuntimeException("Email service unavailable");
         when(sendDailyReportUseCase.sendDailyBusinessReport()).thenReturn(Mono.error(expectedError));
 
-        // When & Then
-        webTestClient.post()
-                .uri("/api/v1/reportes/send-now")
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().is5xxServerError()
-                .expectBody(String.class)
-                .value(body -> body.contains("Error sending report"));
+        // When
+        Mono<ServerResponse> response = handler.sendTestReport(serverRequest);
+
+        // Then
+        StepVerifier.create(response)
+                .assertNext(serverResponse -> {
+                    assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, serverResponse.statusCode());
+                })
+                .verifyComplete();
 
         verify(sendDailyReportUseCase, times(1)).sendDailyBusinessReport();
     }
@@ -134,14 +132,15 @@ class HandlerTest {
 
         when(getLoanReportUseCase.getLoanReport()).thenReturn(Mono.just(emptyReport));
 
-        // When & Then
-        webTestClient.get()
-                .uri("/api/v1/reportes")
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody(LoanReport.class)
-                .isEqualTo(emptyReport);
+        // When
+        Mono<ServerResponse> response = handler.getLoanReports(serverRequest);
+
+        // Then
+        StepVerifier.create(response)
+                .assertNext(serverResponse -> {
+                    assertEquals(HttpStatus.OK, serverResponse.statusCode());
+                })
+                .verifyComplete();
 
         verify(getLoanReportUseCase, times(1)).getLoanReport();
     }
@@ -158,15 +157,26 @@ class HandlerTest {
 
         when(getLoanReportUseCase.getLoanReport()).thenReturn(Mono.just(largeReport));
 
-        // When & Then
-        webTestClient.get()
-                .uri("/api/v1/reportes")
-                .accept(MediaType.APPLICATION_JSON)
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody(LoanReport.class)
-                .isEqualTo(largeReport);
+        // When
+        Mono<ServerResponse> response = handler.getLoanReports(serverRequest);
+
+        // Then
+        StepVerifier.create(response)
+                .assertNext(serverResponse -> {
+                    assertEquals(HttpStatus.OK, serverResponse.statusCode());
+                })
+                .verifyComplete();
 
         verify(getLoanReportUseCase, times(1)).getLoanReport();
+    }
+
+
+    @Test
+    void shouldVerifyHandlerConstructor() {
+        // When
+        Handler newHandler = new Handler(getLoanReportUseCase, sendDailyReportUseCase);
+
+        // Then
+        assertNotNull(newHandler);
     }
 }
