@@ -7,9 +7,12 @@ dependencies {
 	implementation project(':dynamo-db')
 	implementation project(':metrics')
 	implementation project(':reactive-web')
+	implementation project(':email-sender')
+	implementation project(':scheduled-tasks')
     implementation project(':model')
     implementation project(':usecase')
     implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
     // runtimeOnly('org.springframework.boot:spring-boot-devtools') // Disabled to avoid ClassCastException with DynamoDB
     testImplementation 'com.tngtech.archunit:archunit:1.1.1'
     testImplementation 'com.fasterxml.jackson.core:jackson-databind'

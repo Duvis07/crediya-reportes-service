@@ -1,8 +1,10 @@
 package co.com.crediya.reportes.config;
 
 import co.com.crediya.reportes.model.gateways.LoanReportRepository;
+import co.com.crediya.reportes.model.gateways.ReportEmailService;
 import co.com.crediya.reportes.usecase.GetLoanReportUseCase;
 import co.com.crediya.reportes.usecase.ProcessLoanApprovedEventUseCase;
+import co.com.crediya.reportes.usecase.SendDailyReportUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -24,5 +26,11 @@ public class UseCasesConfig {
     @Bean
     public ProcessLoanApprovedEventUseCase processLoanApprovedEventUseCase(LoanReportRepository loanReportRepository) {
         return new ProcessLoanApprovedEventUseCase(loanReportRepository);
+    }
+
+    @Bean
+    public SendDailyReportUseCase sendDailyReportUseCase(LoanReportRepository loanReportRepository, 
+                                                         ReportEmailService reportEmailService) {
+        return new SendDailyReportUseCase(loanReportRepository, reportEmailService);
     }
 }

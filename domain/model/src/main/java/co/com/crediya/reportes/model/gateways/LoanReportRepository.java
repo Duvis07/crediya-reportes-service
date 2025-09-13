@@ -8,9 +8,7 @@ public interface LoanReportRepository {
     Mono<LoanReport> findById(String id);
     
     Mono<LoanReport> save(LoanReport loanReport);
-    
-    Mono<LoanReport> updateLoanCount(String id, Long increment);
-    
+
     Mono<LoanReport> incrementApprovedLoan(String id, java.math.BigDecimal amount);
     
     Mono<LoanReport> getOrCreateSummary();

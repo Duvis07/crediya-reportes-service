@@ -20,12 +20,16 @@ public class SendDailyReportUseCase {
 
         return loanReportRepository.getOrCreateSummary()
                 .flatMap(loanReport -> {
-                    log.info("Retrieved loan report data: {} loans, total amount: {}"
-                            + loanReport.getTotalApprovedLoans() + ", " + loanReport.getTotalApprovedAmount());
+                    log.info("Retrieved loan report data: " + loanReport.getTotalApprovedLoans() 
+                            + " loans, total amount: $" + loanReport.getTotalApprovedAmount());
                     
                     return reportEmailService.sendDailyBusinessReport(loanReport);
                 })
                 .doOnSuccess(v -> log.info("Daily business report sent successfully"))
-                .doOnError(error -> log.severe("Error sending daily business report: " + error.getMessage()));
+                .doOnError(error -> log.severe("Error sending daily business report: " + error.getMessage()))
+                .onErrorResume(error -> {
+                    log.severe("Failed to send daily business report, operation completed with error handling");
+                    return Mono.empty(); // Graceful degradation
+                });
     }
 }

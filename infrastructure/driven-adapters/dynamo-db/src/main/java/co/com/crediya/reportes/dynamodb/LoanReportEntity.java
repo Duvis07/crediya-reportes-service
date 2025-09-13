@@ -5,8 +5,7 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/* Enhanced DynamoDB annotations are incompatible with Lombok #1932
-         https://github.com/aws/aws-sdk-java-v2/issues/1932*/
+
 @Setter
 @DynamoDbBean
 public class LoanReportEntity {
@@ -16,8 +15,6 @@ public class LoanReportEntity {
     private BigDecimal totalApprovedAmount;
     private LocalDateTime lastUpdated;
 
-    public LoanReportEntity() {
-    }
 
     @DynamoDbPartitionKey
     @DynamoDbAttribute("id")

@@ -22,3 +22,7 @@ include ':dynamo-db'
 project(':dynamo-db').projectDir = file('./infrastructure/driven-adapters/dynamo-db')
 include ':sqs-sender'
 project(':sqs-sender').projectDir = file('./infrastructure/driven-adapters/sqs-sender')
+include ':email-sender'
+project(':email-sender').projectDir = file('./infrastructure/driven-adapters/email-sender')
+include ':scheduled-tasks'
+project(':scheduled-tasks').projectDir = file('./infrastructure/entry-points/scheduled-tasks')

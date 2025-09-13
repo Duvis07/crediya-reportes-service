@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte Diario de Negocio - CrediYa</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 16px;
+        }
+        .metrics {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .metric-card {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            margin: 10px;
+            min-width: 200px;
+        }
+        .metric-number {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .metric-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .summary {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 12px;
+        }
+        .date-info {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            .metrics {
+                flex-direction: column;
+            }
+            .metric-card {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">📊 CrediYa</div>
+            <div class="subtitle">Reporte Diario de Rendimiento del Negocio</div>
+        </div>
+
+        <div class="date-info">
+            <strong>📅 Fecha del Reporte:</strong> {{reportDate}}
+        </div>
+
+        <div class="metrics">
+            <div class="metric-card">
+                <div class="metric-number">{{totalLoans}}</div>
+                <div class="metric-label">💼 Préstamos Aprobados</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-number">{{totalAmount}}</div>
+                <div class="metric-label">💰 Monto Total Prestado</div>
+            </div>
+        </div>
+
+        <div class="summary">
+            <h3>📈 Resumen Ejecutivo</h3>
+            <p>
+                <strong>Estado del Negocio:</strong> Al día de hoy, CrediYa ha procesado y aprobado 
+                <strong>{{totalLoans}} préstamos</strong> por un valor total de <strong>{{totalAmount}}</strong>.
+            </p>
+            <p>
+                Este reporte refleja el rendimiento acumulado del negocio y se actualiza automáticamente 
+                con cada nueva aprobación de préstamo.
+            </p>
+        </div>
+
+        <div class="date-info">
+            <strong>🔄 Última Actualización:</strong> {{lastUpdated}}
+        </div>
+
+        <div class="footer">
+            <p>
+                <strong>CrediYa - Plataforma de Préstamos Digitales</strong><br>
+                Este reporte se genera automáticamente todos los días a las 8:00 PM<br>
+                Para consultas, contacte al equipo de administración.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
