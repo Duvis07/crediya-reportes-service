@@ -34,9 +34,6 @@ public class SqsConfig {
 
     @Bean
     public SqsClient sqsClient() {
-        log.info("Creating SQS client with endpoint: {}", endpointUrl);
-        log.info("Using AWS region: {}", region);
-        log.info("Using AWS access key: {}", accessKey);
         
         return SqsClient.builder()
                 .endpointOverride(URI.create(endpointUrl))

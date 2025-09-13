@@ -6,6 +6,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'io.micrometer:micrometer-registry-prometheus'
     
+    // Swagger/OpenAPI dependencies
+    implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.2.0'
+    
     // Lombok
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
