@@ -15,27 +15,20 @@ import java.nio.charset.StandardCharsets;
 public class ErrorResponseBuilder {
 
     public Mono<Void> buildForbiddenResponse(ServerWebExchange exchange, String message) {
-        exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
-        exchange.getResponse().getHeaders().add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-        
-        String errorResponse = String.format(
-            "{\"error\":\"Forbidden\",\"message\":\"%s\",\"status\":403}", 
-            message
-        );
-        
-        DataBuffer buffer = exchange.getResponse().bufferFactory()
-            .wrap(errorResponse.getBytes(StandardCharsets.UTF_8));
-        
-        return exchange.getResponse().writeWith(Mono.just(buffer));
+        return buildErrorResponse(exchange, HttpStatus.FORBIDDEN, "Forbidden", message);
     }
 
     public Mono<Void> buildUnauthorizedResponse(ServerWebExchange exchange, String message) {
-        exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+        return buildErrorResponse(exchange, HttpStatus.UNAUTHORIZED, "Unauthorized", message);
+    }
+
+    private Mono<Void> buildErrorResponse(ServerWebExchange exchange, HttpStatus status, String error, String message) {
+        exchange.getResponse().setStatusCode(status);
         exchange.getResponse().getHeaders().add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
         
         String errorResponse = String.format(
-            "{\"error\":\"Unauthorized\",\"message\":\"%s\",\"status\":401}", 
-            message
+            "{\"error\":\"%s\",\"message\":\"%s\",\"status\":%d}", 
+            error, message, status.value()
         );
         
         DataBuffer buffer = exchange.getResponse().bufferFactory()
