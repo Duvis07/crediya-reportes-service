@@ -13,7 +13,7 @@ public class DailyReportScheduler {
 
     private final SendDailyReportUseCase sendDailyReportUseCase;
 
-    @Scheduled(cron = "0 */2 * * * *")
+    @Scheduled(cron = "${DAILY_REPORT_CRON:0 */1 * * * *}")
     public void sendDailyBusinessReport() {
         log.info("Starting scheduled daily business report generation at 8:00 PM");
         

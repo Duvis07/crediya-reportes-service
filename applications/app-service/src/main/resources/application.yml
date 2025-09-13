@@ -63,6 +63,9 @@ sqs:
 app:
   admin:
     emails: ${ADMIN_EMAILS:admin@crediya.com,gerente@crediya.com}
+  scheduler:
+    daily-report:
+      cron: ${DAILY_REPORT_CRON}
 
 management:
   endpoints:
