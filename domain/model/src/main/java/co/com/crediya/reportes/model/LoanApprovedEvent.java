@@ -18,6 +18,4 @@ public class LoanApprovedEvent {
     private BigDecimal approvedAmount;
     private LocalDateTime approvedDate;
     private String eventType;
-    
-    public static final String EVENT_TYPE_LOAN_APPROVED = "LOAN_APPROVED";
 }
