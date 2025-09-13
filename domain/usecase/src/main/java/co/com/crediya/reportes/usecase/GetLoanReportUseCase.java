@@ -13,7 +13,7 @@ public class GetLoanReportUseCase {
 
     private final LoanReportRepository loanReportRepository;
 
-    Logger log = Logger.getLogger(getClass().getName());
+    private final Logger log = Logger.getLogger(getClass().getName());
 
     public Mono<LoanReport> getLoanReport() {
         log.info("Getting loan report summary");

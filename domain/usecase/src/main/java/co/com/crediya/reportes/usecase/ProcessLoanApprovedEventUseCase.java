@@ -13,7 +13,7 @@ public class ProcessLoanApprovedEventUseCase {
 
     private final LoanReportRepository loanReportRepository;
     private static final String REPORT_ID = "LOAN_REPORT_SUMMARY";
-    Logger log = Logger.getLogger(getClass().getName());
+    private final Logger log = Logger.getLogger(getClass().getName());
 
     public Mono<Void> processLoanApprovedEvent(LoanApprovedEvent event) {
         log.info("Processing loan approved event for solicitud: {}, approved amount: {}"

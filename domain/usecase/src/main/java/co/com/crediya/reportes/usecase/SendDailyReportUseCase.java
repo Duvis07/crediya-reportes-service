@@ -13,7 +13,7 @@ public class SendDailyReportUseCase {
     private final LoanReportRepository loanReportRepository;
     private final ReportEmailService reportEmailService;
     
-    Logger log = Logger.getLogger(getClass().getName());
+    private final Logger log = Logger.getLogger(getClass().getName());
 
     public Mono<Void> sendDailyBusinessReport() {
         log.info("Starting daily business report generation and sending");
