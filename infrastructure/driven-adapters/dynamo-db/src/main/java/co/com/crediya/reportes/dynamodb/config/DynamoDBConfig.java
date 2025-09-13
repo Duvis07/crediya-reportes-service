@@ -18,11 +18,11 @@ import java.net.URI;
 public class DynamoDBConfig {
 
     @Bean
-    @Profile({"local"})
-    public DynamoDbAsyncClient amazonDynamoDB(@Value("${dynamodb.endpoint}") String endpoint,
-                                              @Value("${aws.region}") String region,
-                                              @Value("${aws.access-key}") String accessKey,
-                                              @Value("${aws.secret-key}") String secretKey) {
+    @Profile({"local", "docker"})
+    public DynamoDbAsyncClient amazonDynamoDB(@Value("${AWS_ENDPOINT_URL}") String endpoint,
+                                              @Value("${AWS_REGION}") String region,
+                                              @Value("${AWS_ACCESS_KEY_ID}") String accessKey,
+                                              @Value("${AWS_SECRET_ACCESS_KEY}") String secretKey) {
         return DynamoDbAsyncClient.builder()
                 .credentialsProvider(StaticCredentialsProvider.create(
                         AwsBasicCredentials.create(accessKey, secretKey)))
