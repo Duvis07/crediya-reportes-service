@@ -57,10 +57,7 @@ sqs:
           auth: false
           starttls:
             enable: false
-  # Scheduling Configuration
-  task:
-    scheduling:
-      enabled: true
+
 
 # JWT Configuration
 jwt:
