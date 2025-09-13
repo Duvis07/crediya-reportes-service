@@ -26,3 +26,5 @@ include ':email-sender'
 project(':email-sender').projectDir = file('./infrastructure/driven-adapters/email-sender')
 include ':scheduled-tasks'
 project(':scheduled-tasks').projectDir = file('./infrastructure/entry-points/scheduled-tasks')
+include ':jwt-security'
+project(':jwt-security').projectDir = file('./infrastructure/driven-adapters/jwt-security')

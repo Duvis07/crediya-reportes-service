@@ -13,6 +13,9 @@ spring:
     add-properties: false
     restart:
       enabled: false
+  task:
+    scheduling:
+      enabled: true
 
 logging:
   level:
@@ -58,6 +61,11 @@ sqs:
   task:
     scheduling:
       enabled: true
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:mySecretKey}
+  expiration: ${JWT_EXPIRATION:86400}
 
 # Application Configuration
 app:
