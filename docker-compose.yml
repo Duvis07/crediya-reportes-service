@@ -1,42 +1,6 @@
 version: '3.8'
 
 services:
-  # LocalStack comentado - usando el LocalStack compartido de solicitudes-service
-  # localstack-reportes:
-  #   image: localstack/localstack:latest
-  #   container_name: crediya-localstack-reportes
-  #   environment:
-  #     - SERVICES=dynamodb,sqs
-  #     - DEBUG=0
-  #     - DATA_DIR=/var/lib/localstack
-  #     - LAMBDA_EXECUTOR=local
-  #     - SKIP_INFRA_DOWNLOADS=1
-  #     - PERSISTENCE=1
-  #   ports:
-  #     - "4567:4566"  # Different port to avoid conflicts
-  #   volumes:
-  #     - localstack_reportes_data:/var/lib/localstack
-  #     - ./init-aws-reportes.sh:/etc/localstack/init/ready.d/init-aws-reportes.sh
-  #   networks:
-  #     - crediya-network
-  #   healthcheck:
-  #     test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
-  #     interval: 15s
-  #     timeout: 10s
-  #     retries: 10
-  #     start_period: 30s
-  #   restart: unless-stopped
-
-  # MailHog comentado - usando MailHog compartido de solicitudes-service
-  # mailhog-reportes:
-  #   image: mailhog/mailhog:latest
-  #   container_name: crediya-mailhog-reportes
-  #   ports:
-  #     - "1026:1025"  # SMTP - Different port
-  #     - "8026:8025"  # Web UI - Different port
-  #   networks:
-  #     - crediya-network
-  #   restart: unless-stopped
 
   # Reportes Service
   reportes-service:
@@ -77,8 +41,8 @@ services:
       SPRING_PROFILES_ACTIVE: docker
       
       # Logging
-      LOGGING_LEVEL_ROOT: INFO
-      LOGGING_LEVEL_CO_COM_CREDIYA: DEBUG
+#      LOGGING_LEVEL_ROOT: INFO
+#      LOGGING_LEVEL_CO_COM_CREDIYA: DEBUG
       
     ports:
       - "8082:8082"

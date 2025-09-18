@@ -165,10 +165,11 @@ class LoanApprovedEventConsumerTest {
         // When
         consumer.consumeLoanApprovedEvent();
 
-        // Then
+        // Then - Verify that processing continues despite delete error
         verify(sqsClient, timeout(2000)).receiveMessage(any(ReceiveMessageRequest.class));
         verify(objectMapper, timeout(2000)).readValue(messageBody, LoanApprovedEvent.class);
         verify(processLoanApprovedEventUseCase, timeout(2000)).processLoanApprovedEvent(event);
+        // Delete is attempted but error is handled gracefully
         verify(sqsClient, timeout(2000)).deleteMessage(any(DeleteMessageRequest.class));
     }
 

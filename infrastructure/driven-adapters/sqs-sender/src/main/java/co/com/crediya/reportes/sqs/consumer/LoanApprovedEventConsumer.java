@@ -91,20 +91,20 @@ public class LoanApprovedEventConsumer {
     }
 
     private Mono<Void> deleteMessageReactively(Message message) {
-        return Mono.fromRunnable(() -> {
-                    try {
-                        DeleteMessageRequest deleteRequest = DeleteMessageRequest.builder()
-                                .queueUrl(queueUrl)
-                                .receiptHandle(message.receiptHandle())
-                                .build();
-                        sqsClient.deleteMessage(deleteRequest);
-                        log.debug("Message deleted from queue: {}", message.messageId());
-                    } catch (Exception e) {
-                        log.error("Error deleting message from queue: {}", message.messageId(), e);
-                        throw new SqsMessageDeletionException("Failed to delete message", e);
-                    }
+        return Mono.fromCallable(() -> {
+                    DeleteMessageRequest deleteRequest = DeleteMessageRequest.builder()
+                            .queueUrl(queueUrl)
+                            .receiptHandle(message.receiptHandle())
+                            .build();
+                    sqsClient.deleteMessage(deleteRequest);
+                    log.debug("Message deleted from queue: {}", message.messageId());
+                    return null; // Void return
                 })
                 .subscribeOn(Schedulers.boundedElastic())
+                .onErrorResume(error -> {
+                    log.error("Failed to delete message from queue: {}", message.messageId(), error);
+                    return Mono.empty();
+                })
                 .then();
     }
 }
