@@ -40,7 +40,6 @@ class LoanReportRepositoryAdapterTest {
     @BeforeEach
     void setUp() throws Exception {
         when(dynamoDbClient.table(eq("loan-reports"), any(TableSchema.class))).thenReturn(table);
-        when(table.createTable()).thenReturn(CompletableFuture.completedFuture(null));
 
         adapter = new LoanReportRepositoryAdapter(dynamoDbClient, mapper);
 
