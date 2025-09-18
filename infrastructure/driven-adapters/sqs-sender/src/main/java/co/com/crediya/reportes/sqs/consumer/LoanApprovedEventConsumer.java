@@ -35,10 +35,10 @@ public class LoanApprovedEventConsumer {
     public void consumeLoanApprovedEvent() {
         pollMessagesReactively()
                 .subscribeOn(Schedulers.boundedElastic())
-                .subscribe(
-                        result -> log.debug("Polling completed successfully"),
-                        error -> log.error("Error during reactive polling", error)
-                );
+                .doOnSuccess(result -> log.debug("Polling completed successfully"))
+                .doOnError(error -> log.error("Error during reactive polling", error))
+                .onErrorResume(error -> Mono.empty())
+                .subscribe();
     }
 
     private Mono<Void> pollMessagesReactively() {
