@@ -9,7 +9,6 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedAsyncClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbAsyncTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
-import software.amazon.awssdk.services.dynamodb.model.ResourceInUseException;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -25,22 +24,6 @@ public class LoanReportRepositoryAdapter implements LoanReportRepository {
     public LoanReportRepositoryAdapter(DynamoDbEnhancedAsyncClient dynamoDbClient, ObjectMapper mapper) {
         this.table = dynamoDbClient.table("loan-reports", TableSchema.fromBean(LoanReportEntity.class));
         this.mapper = mapper;
-        createTableIfNotExists();
-    }
-
-    private void createTableIfNotExists() {
-        try {
-            table.createTable().join();
-            log.info("Table 'loan-reports' created successfully");
-        } catch (Exception e) {
-            // Check if the root cause is ResourceInUseException (table already exists)
-            Throwable cause = e.getCause();
-            if (cause instanceof ResourceInUseException) {
-                log.info("Table 'loan-reports' already exists, skipping creation");
-            } else {
-                log.error("Error creating table: {}", e.getMessage(), e);
-            }
-        }
     }
 
     @Override

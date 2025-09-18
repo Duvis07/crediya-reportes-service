@@ -16,11 +16,9 @@ public class ProcessLoanApprovedEventUseCase {
     private final Logger log = Logger.getLogger(getClass().getName());
 
     public Mono<Void> processLoanApprovedEvent(LoanApprovedEvent event) {
-        log.info("Processing loan approved event for solicitud: {}, approved amount: {}"
-        );
 
         return loanReportRepository.incrementApprovedLoan(REPORT_ID, event.getApprovedAmount())
-                .doOnSuccess(updatedReport -> log.info("Updated loan report: {} total loans, {} total amount"
+                .doOnSuccess(updatedReport -> log.info("Updated loan report"
                 ))
                 .doOnError(error -> log.severe("Error processing loan approved event for solicitud: {}" +
                         event.getSolicitudId()))

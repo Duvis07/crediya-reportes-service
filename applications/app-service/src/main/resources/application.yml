@@ -17,12 +17,12 @@ spring:
     scheduling:
       enabled: true
 
-logging:
-  level:
-    co.com.crediya.reportes: DEBUG
-    software.amazon.awssdk: INFO
-    org.springframework: INFO
-    io.awspring.cloud: INFO
+#logging:
+#  level:
+#    co.com.crediya.reportes: DEBUG
+#    software.amazon.awssdk: INFO
+#    org.springframework: INFO
+#    io.awspring.cloud: INFO
 
 # AWS LocalStack Configuration
 aws:
